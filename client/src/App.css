@@ -28,8 +28,7 @@ main{
 header{
   display: flex;
   justify-content: space-between;
-  /* margin-bottom: 50px; */
-  font-size: 1.2rem;
+  font-size: 1.2em;
   padding: 10px;
   border-bottom: 2px solid black;
 }

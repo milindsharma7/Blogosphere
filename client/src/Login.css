@@ -20,8 +20,7 @@ font-family: 'Roboto',sans-serif; */
 }
 
 p{
-    margin-bottom: 50px;
-    font-size: large;
+    margin-bottom: 2em;
     border-bottom: 2px solid;
     border-bottom-style: outset;
 }
@@ -32,6 +31,7 @@ form{
     width: 200px;
     height: 90%;
     width: 90%;
+    font-size: 2.5vmin;
     border-radius: 10px;
     align-items: center;
     justify-content: center;
@@ -39,8 +39,8 @@ form{
 
 input{
     border: 2px solid black;
-    margin-bottom: 25px;
-    margin-top: 10px;
+    margin-bottom: 1.5vmin;
+    margin-top: 1.2rem;
     padding: 0.5rem;
     border-radius: 10px;
     outline: none;
@@ -52,9 +52,18 @@ button{
     padding: 10px;
     width: 100px;
     margin: 10px;
+    font-size: 2vmin;
 }
-
-button:hover {
+.button{
+    background-color: lightgray;
+    padding: 10px;
+    width: 100px;
+    margin: 10px;
+    text-align: center;
+    font-size: 2vmin;
+    border-radius: 10px;
+}
+button:hover,.button:hover {
     background-color: darkgray;
 }
 
@@ -62,13 +71,14 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color:rgba(48, 48, 48, 0.721);
+    background-color:darkslategrey;
     flex-grow: 1;
     justify-content: center;
 } 
 
 .banner{
     flex-grow: 1;
+    min-width: 50vw;
     background-image: url('../assets/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -78,10 +88,11 @@ button:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex-wrap: wrap;
+    font-size: 2vw;
 }
 .bannerText{
     background: none;
-    font-size: xx-large;
 }
 span{
     background: none;

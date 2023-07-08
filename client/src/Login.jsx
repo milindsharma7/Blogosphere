@@ -1,6 +1,8 @@
 import React from 'react'
 import './Login.css'
 import Header from './Header'
+import { Link } from 'react-router-dom'
+import Register from './Register'
 
 function Login() {
   return (
@@ -12,9 +14,9 @@ function Login() {
                     <p>Enter your credentials</p>
                     Username: <input type="text" name="" id="username" placeholder='Enter username'/>
                     Password: <input type="password" name="" id="password" placeholder='Enter password'/>
-                    <button>Login</button>
+                    <button type="submit">Login</button>
                     OR
-                    <button>Register</button>
+                    <Link to='/register' className='button'>Register</Link>
                 </form>
             </div>
             <div className='banner'>
