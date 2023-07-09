@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@600&family=Caprasimo&family=Roboto:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&display=swap');
 
 /* font-family: 'Belanosima',sans-serif;
 font-family: 'Caprasimo',cursive;
@@ -60,13 +60,14 @@ header a{
 header a:hover{
   background-color: lightgrey;
   color: black;
+  cursor: pointer;
 }
 
 header a.logo{
   font-weight: bold;
 }
 
-header nav{
+header nav div{
   display: flex;
   gap: 15px;
 }
@@ -88,13 +89,17 @@ header nav{
   padding: 10px;
 }
 
-.heading{
+.heading a{
   font-size: 1.5rem;
-  font-family: 'Belanosima', sans-serif;
+  font-family: 'Bacasime Antique', serif;
+  font-size: 4vmin;
+  text-decoration: underline;
+  text-decoration-color: lightslategrey;
 }
 
 .para{
   font-family: 'Roboto', sans-serif;
+  font-weight: 200;
 }
 
 img{
