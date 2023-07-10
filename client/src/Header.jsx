@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Header() {
 
   const [username,setUsername] = useState(null);
+  const [logOut,setLogOut] = useState(false);
+
   const getRequest = async () => {
     try {
       const response  = await axios.get('http://localhost:4000/profile',
@@ -22,23 +24,25 @@ function Header() {
     getRequest();
   },[]);
 
-  // const logout=()=>{
-      const logOutRequest = async () => {
-        try {
-          const response  = await axios.post('http://localhost:4000/logout',
-            {
-              withCredentials: true,
-              credentials: "include"
-            }
-          ); 
-          // console.log(response);console.log(username);
-        }catch (error) {
-            console.log(`error: `, error);
+
+  const logOutRequest = async () => {
+    try {
+      const response  = axios.get('http://localhost:4000/logout',
+        {
+          withCredentials: true,
         }
-       
+      ); 
+      setLogOut(true);
+      // console.log(logOut);
+    }catch (error) {
+        console.log(`error: `, error);
     }
-  // }
-  
+       
+  }
+  // console.log(username);
+  if(logOut){
+    return <Navigate to='/login'/>
+  }
   return (
       <header>
         <a href="/home" className="logo">Blogosphere</a>
@@ -46,6 +50,7 @@ function Header() {
         {
           username ? 
           <div>
+            <div id='Name'> {username} </div>
             <Link to="/profile">Profile</Link>
             <a onClick={logOutRequest}>Logout</a>
           </div>

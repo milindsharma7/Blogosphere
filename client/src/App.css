@@ -105,3 +105,8 @@ header nav div{
 img{
   border-radius: 20px;
 }
+
+#Name{
+  align-items: center;
+  border-bottom: 2px solid black;
+}
