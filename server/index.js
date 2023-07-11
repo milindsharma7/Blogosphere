@@ -16,13 +16,12 @@ const url = 'mongodb+srv://milindsharma:milind123@blog.76ccyfp.mongodb.net/?retr
 const key = 'mvof3heu9eg9evgbwfe83un4c3cc4';
 
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
-app.use(bodyParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(express.json());
 app.use(cookieParser());
-//support parsing of application/x-www-form-urlencoded post data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/uploads', express.static(__dirname + '/uploads'));
-
 mongoose.connect(url);
 
 app.post('/login', async (req,res) => {
@@ -70,23 +69,18 @@ app.post('/register', async (req,res) => {
     }
 });
 
-app.post('/create', uploadMiddleware.single('file'), async (req,res) => {
+app.post('/create', async (req,res) => {
     console.log(req);
-    const {originalname,path} = req.file;
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1];
-    const newPath = path+'.'+ext;
-    fs.renameSync(path, newPath);
-  
     const {token} = req.cookies;
     jwt.verify(token, key, {}, async (err,info) => {
       if (err) throw err;
-      const {title,summary,content} = req.body;
+      const {title,summary,content,cover,name} = req.body;
       const postDoc = await Post.create({
         title,
         summary,
         content,
-        cover:req.file,
+        cover,
+        name,
         author:info.id,
       });
       res.json(postDoc);
@@ -114,6 +108,16 @@ app.get('/logout', async (req,res) => {
         });
         console.log('success logout');
         res.json('ok');
+    } catch (e) {
+        // console.log(e.message);
+        res.status(400).json(e.message);
+    }
+});
+
+app.get('/get', async (req,res) => {
+    try {
+        const posts = await Post.find();
+        res.json(posts);
     } catch (e) {
         // console.log(e.message);
         res.status(400).json(e.message);

@@ -1,21 +1,23 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Posts() {
+function Posts({title,summary,cover,name,updatedAt}) {
+  const date = new Date(updatedAt);
+  date.setHours(date.getHours() + 5)
+  date.setMinutes(date.getMinutes() + 30)
   return (
       <div className="post">
         <div className="image">
-          <img src="https://images.indianexpress.com/2023/07/twitter-threads.jpg?w=414"/>
+          <img src = {cover}/>
         </div>
         <div className="texts">
           <div className="heading">
-            <Link to='/'>Twitter threatens to sue Meta over Threads platform</Link>
+            <Link to='/'>{title}</Link>
           </div>
           <div className="info">
-            <div className="author">Milind Sharma</div>
-            <div className='time'>Published: 2023-07-08 10:30</div>
+            <div className="author">@{name}</div>
+            <div className='time'>Updated: {date.toUTCString().substring(0,25)}</div>
           </div>
-          <div className="para">Spiro, in his letter, accused Meta of hiring former Twitter employees who "had and continue to have access to Twitter's trade secrets and other highly confidential information," News website Semafor first reported.</div>
+          <div className="para">{summary}</div>
         </div>
       </div>
   )

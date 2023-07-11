@@ -83,6 +83,10 @@ header nav div{
   align-items: center;
 }
 
+.image img{
+  height: 30vh;
+}
+
 .texts{
   display: flex;
   flex-direction: column;
