@@ -8,9 +8,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const app = express();
-const multer = require('multer');
-const uploadMiddleware = multer({ dest: 'uploads/' });
-const fs = require('fs');
 
 const url = 'mongodb+srv://milindsharma:milind123@blog.76ccyfp.mongodb.net/?retryWrites=true&w=majority';
 const key = 'mvof3heu9eg9evgbwfe83un4c3cc4';
@@ -116,7 +113,18 @@ app.get('/logout', async (req,res) => {
 
 app.get('/get', async (req,res) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().sort({_id:-1});
+        res.json(posts);
+    } catch (e) {
+        // console.log(e.message);
+        res.status(400).json(e.message);
+    }
+});
+
+app.get('/post/:id', async (req,res) => {
+    try {
+        const { id } = req.params; 
+        const posts = await Post.findById(id);
         res.json(posts);
     } catch (e) {
         // console.log(e.message);

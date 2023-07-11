@@ -50,11 +50,14 @@ function Header() {
           userInfo.username ? 
           <div>
             <div id='Name'> {userInfo.username} </div>
+            <Link to="/home">Home</Link>
+            <Link to="/my">MyPosts</Link>
             <Link to="/create">Create</Link>
             <a onClick={logOutRequest}>Logout</a>
           </div>
           :
           <div>
+            <Link to="/home">Home</Link>
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
           </div>

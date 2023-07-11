@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Merriweather:ital,wght@0,900;1,700;1,900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,900;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,900;1,300;1,400&display=swap');
+/* font-family: 'Bacasime Antique', serif;
+font-family: 'Merriweather', serif;
+font-family: 'Poppins', sans-serif; */
+*{
+    word-wrap: break-word;
+}
+#singlePostImage{
+    margin: 10px;
+    width: 30%;
+}
+
+#singlePostDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sgButton a{
+    padding: 10px;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    border: 2px solid black;
+    transition: all 0.5s;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+
+#sgEdit{
+    background-color: rgba(0, 132, 255, 0.694);
+    display: inline-block;
+    width: 5vw; 
+    text-align: center;
+}
+
+#sgDelete{
+    background-color: rgb(255, 60, 60);
+    display: inline-block;
+    width: 5vw;
+    text-align: center;
+}
+#sgButton a:hover{
+    background-color: rgba(108, 108, 108, 0.272);
+    color: white;
+}
+
+#sgButton{
+    margin-top: 2vh;
+}
+
+#sgTitle{
+    font-family: 'Merriweather', serif;
+    font-weight: 900;
+    font-size: 6vmin;
+    font-style: italic;
+    margin-top: 50px;
+    width: 80vw;
+    word-wrap: break-word;
+    color: rgb(70, 70, 70);
+    border-bottom: 2px solid rgba(65, 65, 65, 0.607);
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+#sgAuthor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+#sgAuthor div{
+    text-decoration: underline;
+    font-family: 'Merriweather', serif;
+    color: rgb(57, 57, 57);
+}
+
+#sgContent{
+    width: 80vw;
+    font-family: 'Merriweather', serif;
+    padding: 20px;
+    margin: 10px;
+    border-top: 2px solid rgb(72, 71, 71);
+    border-top-style: dashed;
+    color: rgb(81, 81, 81);
+    word-spacing: 5px;
+    line-height: 4vmin;
+    background-color: rgba(190, 190, 190, 0.349);
+}
+
+#sgContent > *{
+    background-color: transparent;
+    border: none;
+    width: 80vw;
+    font-family: 'Merriweather', serif;
+    color: rgb(81, 81, 81);
+    word-spacing: 2px;
+    line-height: 3.5vmin;
+}

@@ -36,7 +36,7 @@ header{
 .logo{
   font-family: 'Caprasimo', cursive;
   font-size: 1.8rem;
-  color: darkslategrey;
+  color: rgb(20, 77, 45)
 }
 
 .author{
@@ -47,6 +47,7 @@ header{
 .time{
   font-weight: lighter;
   font-size: 0.8rem;
+  color: rgb(94, 94, 94);
 }
 
 header a{
@@ -55,12 +56,19 @@ header a{
   border-radius: 10px;
   padding: 5px;
   transition: all 0.5s;
+  background-color: rgba(177, 177, 177, 0.32);
 }
 
 header a:hover{
-  background-color: lightgrey;
+  background-color: rgb(139, 138, 138);
   color: black;
   cursor: pointer;
+}
+
+
+.logo:hover{
+  color: rgba(255, 255, 255, 0.858);
+  background-color: rgba(0, 0, 0, 0.559);
 }
 
 header a.logo{
@@ -76,6 +84,8 @@ header nav div{
   display: flex;
   border-bottom: 2px solid lightgray;
   margin-top: 50px;
+  margin-left: 1vw;
+  padding: 5px;
 }
 
 .image{
@@ -94,9 +104,8 @@ header nav div{
 }
 
 .heading a{
-  font-size: 1.5rem;
   font-family: 'Bacasime Antique', serif;
-  font-size: 4vmin;
+  font-size: 5vmin;
   text-decoration: underline;
   text-decoration-color: lightslategrey;
 }
@@ -104,6 +113,9 @@ header nav div{
 .para{
   font-family: 'Roboto', sans-serif;
   font-weight: 200;
+  word-wrap: break-word;
+  max-width: 70vw;
+  font-style: italic;
 }
 
 img{
@@ -113,4 +125,9 @@ img{
 #Name{
   align-items: center;
   border-bottom: 2px solid black;
+}
+
+.heading{
+  word-wrap: break-word;
+  max-width: 70vw;
 }
