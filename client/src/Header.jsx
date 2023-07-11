@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
+import { UserContext } from './UserContext';
 import axios from 'axios'
 
 function Header() {
 
-  const [username,setUsername] = useState(null);
+  const {userInfo,setUserInfo} = useContext(UserContext);
   const [logOut,setLogOut] = useState(false);
 
   const getRequest = async () => {
@@ -14,10 +15,9 @@ function Header() {
           withCredentials: true,
         }
       );
-      setUsername(response.data.username);
-      console.log(username);
+      setUserInfo(response.data);
     }catch (error) {
-        console.log(`error: `, error);
+      
     }
   }
   useEffect(()=>{
@@ -27,19 +27,18 @@ function Header() {
 
   const logOutRequest = async () => {
     try {
-      const response  = axios.get('http://localhost:4000/logout',
+      axios.get('http://localhost:4000/logout',
         {
           withCredentials: true,
         }
       ); 
       setLogOut(true);
-      // console.log(logOut);
     }catch (error) {
-        console.log(`error: `, error);
+        // console.log(`error: `, error);
     }
        
   }
-  // console.log(username);
+
   if(logOut){
     return <Navigate to='/login'/>
   }
@@ -48,10 +47,10 @@ function Header() {
         <a href="/home" className="logo">Blogosphere</a>
         <nav>
         {
-          username ? 
+          userInfo.username ? 
           <div>
-            <div id='Name'> {username} </div>
-            <Link to="/profile">Profile</Link>
+            <div id='Name'> {userInfo.username} </div>
+            <Link to="/create">Create</Link>
             <a onClick={logOutRequest}>Logout</a>
           </div>
           :

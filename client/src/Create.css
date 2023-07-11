@@ -1,0 +1,47 @@
+.createDiv{
+    font-size: 2vmin;
+}
+
+#createForm{
+    border: 2px solid black;
+    width: 70vw;
+    height: 70vh;
+    justify-content: flex-start;
+    margin: auto;
+    position: flex;
+    flex-direction: column;
+}
+
+#createForm input{
+    margin: 0px;
+    border-radius: 0px;
+    margin: 2px;
+    border: none;
+    border-bottom: 2px solid black;
+    width: 60vw;
+}
+
+#quill{
+    width: 62vw;
+    height: 50%;
+    margin-top: 10px;
+}
+#quill span{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#createDiv{
+    display: flex;
+    flex-direction: column;
+} 
+
+#submitCreate{
+    position: absolute;
+    bottom: 2vh;
+}
+
+#headCreate{
+    margin: auto;
+    padding: 2vh;
+    font-size: 5vmin;
+    text-decoration-line: underline;
+}

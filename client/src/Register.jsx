@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import Header from './Header'
 import axios from 'axios';
 
 function Register() {
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
+  const [redirect,setRedirect] = useState(false);
 
   const register = async (e) => {
     e.preventDefault();
@@ -16,13 +17,18 @@ function Register() {
           password : password,
         },
       )
+      setRedirect(true);
       console.log(`data: `, response.data);
    
     } catch (error) {
       console.log(`error: `, error);
     }
   }
-
+  if(redirect === true){
+    return(
+      <Navigate to='/login'/>
+    )
+  }
   return (
     <div className='loginContent'>
         <Header/>

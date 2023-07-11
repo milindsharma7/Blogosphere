@@ -3,10 +3,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { default: mongoose } = require('mongoose');
 const User = require('./models/User');
+const Post = require('./models/Posts');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const app = express();
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 const url = 'mongodb+srv://milindsharma:milind123@blog.76ccyfp.mongodb.net/?retryWrites=true&w=majority';
 const key = 'mvof3heu9eg9evgbwfe83un4c3cc4';
@@ -17,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect(url);
 
@@ -38,8 +43,10 @@ app.post('/login', async (req,res) => {
                     throw err;
                 }
                 res.cookie('token',token,{
+                    id:response._id,
+                    username:response.username,
                     httpOnly: true,
-                    expires: new Date(Date.now() + 60 * 1000),
+                    expires: new Date(Date.now() + 60 * 1000 * 60),
                 }).json('Login Success');
             });
         }else{
@@ -57,19 +64,45 @@ app.post('/register', async (req,res) => {
             username,
             password: await bcrypt.hash(password,10)
         });
-        res.json(response);   
+        res.json(response);
     } catch (e) {
         console.log(e.message);
     }
 });
 
+app.post('/create', uploadMiddleware.single('file'), async (req,res) => {
+    console.log(req);
+    const {originalname,path} = req.file;
+    const parts = originalname.split('.');
+    const ext = parts[parts.length - 1];
+    const newPath = path+'.'+ext;
+    fs.renameSync(path, newPath);
+  
+    const {token} = req.cookies;
+    jwt.verify(token, key, {}, async (err,info) => {
+      if (err) throw err;
+      const {title,summary,content} = req.body;
+      const postDoc = await Post.create({
+        title,
+        summary,
+        content,
+        cover:req.file,
+        author:info.id,
+      });
+      res.json(postDoc);
+    });
+  
+  });
+
 app.get('/profile',(req,res) => {
     const { token } = req.cookies;
     jwt.verify(token,key,{},(err,response) => {
-        if(err){
-            throw err;
+        if(!err){
+            res.json(response);
         }
-        res.json(response);
+        else{
+            res.json(err);
+        }
     });
 });
 
@@ -82,7 +115,7 @@ app.get('/logout', async (req,res) => {
         console.log('success logout');
         res.json('ok');
     } catch (e) {
-        console.log(e.message);
+        // console.log(e.message);
         res.status(400).json(e.message);
     }
 });

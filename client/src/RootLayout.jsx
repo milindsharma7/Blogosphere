@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from './Header'
 import Posts from './Posts'
-import { Outlet } from 'react-router-dom'
 
 function RootLayout() {
   return (
@@ -9,7 +8,6 @@ function RootLayout() {
         <Header/>
         <Posts/>
         <Posts/>
-        <Outlet/>
     </main>
   )
 }
