@@ -78,10 +78,10 @@ function Create() {
       <div id='headCreate'>Create a new Blog</div>
       <form onSubmit={createNewPost} id='createForm'>
         <input type="text" value={title} required placeholder='Title' onChange={(e) => setTitle(e.target.value)}/>
-        <input type="text" required value={summary} placeholder='Summary' onChange={(e) => setSummary(e.target.value)}/>
+        <input type="text" required value={summary} placeholder='Summary in 100 words' onChange={(e) => setSummary(e.target.value)}/>
         <input type="file" required accept='.jpeg,.png,.jpg' onChange={(e) => setFile(e.target.files)}/>
         <ReactQuill value={content} modules={modules} formats={formats} id='quill' onChange={(newValue) => setContent(newValue)}/>
-        <button type='submit' id='submitCreate'>Create</button>
+        <button type='submit' id='submitCreate'>Post</button>
       </form>
     </div>
   )

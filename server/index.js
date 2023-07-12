@@ -121,6 +121,18 @@ app.get('/get', async (req,res) => {
     }
 });
 
+app.post('/my', async (req,res) => {
+    try {
+        const posts = await Post.find({"name" : req.body.username});
+        // console.log(req.body.useranme);
+        res.json(posts);
+    } catch (e) {
+        // console.log(e.message);
+        res.status(400).json(e.message);
+    }
+});
+
+
 app.get('/post/:id', async (req,res) => {
     try {
         const { id } = req.params; 
