@@ -41,16 +41,16 @@ function Login() {
             <div className="content">        
                 <div className='loginArea'>
                     <form onSubmit={login} method=''>
-                        <p>Enter your credentials</p>
-                        Username: <input type="text" 
+                        <p>ENTER YOUR CREDENTIALS</p>
+                        USERNAME: <input type="text" 
                                 required id="username" 
                                 placeholder='Enter username' onChange={(e) => setUsername(e.target.value)}/>
-                        Password: <input type="password" 
+                        PASSWORD: <input type="password" 
                                 required id="password" 
                                 placeholder='Enter password' onChange={(e) => setPassword(e.target.value)}/>
-                        <button type="submit">Login</button>
+                        <button type="submit">LOGIN</button>
                         OR
-                        <Link to='/register' className='button'>Register</Link>
+                        <Link to='/register' className='button'>REGISTER</Link>
                     </form>
                 </div>
                 <div className='banner'>

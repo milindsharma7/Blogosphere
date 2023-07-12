@@ -107,10 +107,10 @@ button{
     border-radius: 10px;
 }
 
-.headerHome{
+/* .headerHome{
     background-color: rgba(0, 132, 255, 0.694);
     color: white;
-}
+} */
 
 .headerMy{
     background-color: rgba(0, 132, 255, 0.694);
@@ -122,7 +122,17 @@ button{
     color: white;
 }
 
-.headerLogout{
+/* .headerLogout{
     background-color: rgb(255, 60, 60);
     color: white;
 }
+
+.headerLogin{
+    background-color: rgb(228, 222, 36);
+    color: white;
+}
+
+.headerRegister{
+    background-color: rgb(30, 215, 0.694);
+    color: white;
+} */

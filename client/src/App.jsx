@@ -7,6 +7,7 @@ import Create from './Create';
 import SinglePost from './SinglePost';
 import MyPosts from './MyPosts';
 import EditPost from './EditPost';
+import Footer from './Footer';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='delete/:id' element={<RootLayout/>}/>
         </Route>    
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

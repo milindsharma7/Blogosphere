@@ -32,24 +32,24 @@ function Register() {
   return (
     <div className='loginContent'>
         <Header/>
-        <div className="content">        
+        <div className="content">
             <div className='loginArea'>
                 <form onSubmit={register} method='POST'>
-                    <p>Enter Details</p>
-                    Username: <input type="text" 
+                    <p>ENTER DETAILS</p>
+                    USERNAME: <input type="text" 
                               id="username" 
                               placeholder='Enter username'
                               required
                               onChange={(e) => setUsername(e.target.value)}/>
 
-                    Password: <input type="password" 
+                    PASSWORD: <input type="password" 
                               id="password" 
                               placeholder='Enter password'
                               required
                               onChange={(e) => setPassword(e.target.value)}/>
-                    <button type="submit">Register</button>
+                    <button type="submit">REGISTER</button>
                     Already Registered? Login here
-                    <Link to='/login' className='button'>Login</Link>
+                    <Link to='/login' className='button'>LOGIN</Link>
                 </form>
             </div>
             <div className='banner'>
