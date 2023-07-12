@@ -24,12 +24,12 @@ mongoose.connect(url);
 app.post('/login', async (req,res) => {
     try {
         const { username , password } = req.body;
-        console.log(username,password);
+        // console.log(username,password);
         const response = await User.findOne({username : username});
         const hashPassword = response.password;
         const valid = await bcrypt.compare(password,hashPassword);
-        console.log(password,hashPassword);
-        console.log(valid);
+        // console.log(password,hashPassword);
+        // console.log(valid);
         if(valid){
             jwt.sign({
                 username:username,
@@ -46,7 +46,7 @@ app.post('/login', async (req,res) => {
                 }).json('Login Success');
             });
         }else{
-            res.status(400).json('Invalid Credentials');
+            throw res.status(400).json('Invalid Credentials');
         }
     } catch (e) {
         console.log(e.message);
@@ -67,7 +67,7 @@ app.post('/register', async (req,res) => {
 });
 
 app.post('/create', async (req,res) => {
-    console.log(req);
+    // console.log(req);
     const {token} = req.cookies;
     jwt.verify(token, key, {}, async (err,info) => {
       if (err) throw err;
@@ -138,6 +138,52 @@ app.get('/post/:id', async (req,res) => {
         const { id } = req.params; 
         const posts = await Post.findById(id);
         res.json(posts);
+    } catch (e) {
+        // console.log(e.message);
+        res.status(400).json(e.message);
+    }
+});
+
+app.put('/edit/:id', async (req,res) => {
+    try {
+        const { id } = req.params; 
+        const post = await Post.findById(id);
+        const {token} = req.cookies;
+        jwt.verify(token, key, {}, async (err,info) => {
+          if (err) throw err;
+          if(JSON.stringify(info.id) !== JSON.stringify(post.author)){
+            console.log('acha');
+            throw res.status(400).json('Action not permitted');
+          }
+          const {title,summary,content,cover,name} = req.body;
+          await Post.updateOne(
+            {
+                _id:id
+            },
+            {
+            title,
+            summary,
+            content,
+            cover,
+            name,
+            author:info.id,
+          });
+          res.status(200).json("Updated Sucessfully");
+        });
+    } catch (e) {
+        res.status(400).json(e.message);
+    }
+});
+
+app.delete('/delete/:id', async (req,res) => {
+    try {
+        const { id } = req.params; 
+        await Post.deleteOne(
+            {
+                _id:id
+            }
+        );
+        res.json("Deleted Successfully");
     } catch (e) {
         // console.log(e.message);
         res.status(400).json(e.message);

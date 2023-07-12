@@ -6,6 +6,7 @@ import Register from './Register';
 import Create from './Create';
 import SinglePost from './SinglePost';
 import MyPosts from './MyPosts';
+import EditPost from './EditPost';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path='/create' element={<Create/>}/>
           <Route path='/post/:id' element={<SinglePost/>}/>
           <Route path='/my' element={<MyPosts/>}/>
+          <Route path='/edit/:id' element={<EditPost/>}/>
+          <Route path='delete/:id' element={<RootLayout/>}/>
         </Route>    
       </Routes>
     </BrowserRouter>

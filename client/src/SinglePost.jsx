@@ -51,8 +51,8 @@ function SinglePost() {
           {
             canEdit ?
             <div id='sgButton'>
-              <Link id='sgEdit'>EDIT</Link>
-              <Link id='sgDelete'>DELETE</Link>
+              <Link id='sgEdit' to={`/edit/${id}`}>EDIT</Link>
+              <Link id='sgDelete' to={`/delete/${id}`}>DELETE</Link>
             </div>
             :
             <div>
