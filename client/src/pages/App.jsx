@@ -1,4 +1,4 @@
-import './App.css';
+import '../styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RootLayout from './RootLayout';
 import Login from './Login';
@@ -9,9 +9,17 @@ import MyPosts from './MyPosts';
 import EditPost from './EditPost';
 import Footer from './Footer';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer pauseOnHover={false} 
+      position='top-center' 
+      autoClose={2000} 
+      toastStyle={{backgroundColor: 'transparent'}}
+      />
       <Routes>
         <Route path='/'>
           <Route index element={<RootLayout/>}/>

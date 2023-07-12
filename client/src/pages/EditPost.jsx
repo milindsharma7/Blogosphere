@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import Header from './Header';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import './Create.css';
+import '../styles/Create.css';
 import axios from 'axios';
 import { Navigate, useParams } from 'react-router-dom';
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
+import { toast } from 'react-toastify';
 
 const modules = {
   toolbar: [
@@ -50,7 +51,7 @@ function EditPost() {
     e.preventDefault();
     const base64 = await convertToBase64(file[0]);
     try {
-      const response  = await axios.put(`http://localhost:4000/edit/${id}`,{
+      const response  = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/${id}`,{
           // your expected POST request payload goes here
           title: title,
           summary: summary,
@@ -63,9 +64,10 @@ function EditPost() {
         }
       )
       setRedirect(true);
-   
+      toast.success('Edited Successfully');
     } catch (error) {
       console.log(`error: `, error.message);
+      toast.error('Error Occured');
       setRedirect(true);
     }
   }

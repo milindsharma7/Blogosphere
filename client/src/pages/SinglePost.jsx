@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import axios from 'axios';
 import Header from './Header';
-import './SinglePost.css'
+import '../styles/SinglePost.css';
+import { toast } from 'react-toastify';
 
 function SinglePost() { 
   const {userInfo,setUserInfo} = useContext(UserContext);
@@ -15,7 +16,7 @@ function SinglePost() {
 
   const getRequest = async () => {
     try {
-      const response  = await axios.get(`http://localhost:4000/post/${id}`,
+      const response  = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/post/${id}`,
         {
           withCredentials: true,
         }
@@ -26,7 +27,7 @@ function SinglePost() {
         setCanEdit(true);
       }
     }catch (error) {
-        
+        toast.error('Error');
     }
   }
   useEffect(()=>{
@@ -36,11 +37,18 @@ function SinglePost() {
   const deleteRequest = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.delete(`http://localhost:4000/post/${id}`
+      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/post/${id}`,
+      {
+        withCredentials: true,
+      },
+      {
+        username: setUserInfo.username,
+      }
       );
+      toast.success('Deleted Successfully');
       setCanDelete(true);
     }catch (error) {
-
+      toast.error('Error Deleting');
     }
   }
   if(canDelete === true){

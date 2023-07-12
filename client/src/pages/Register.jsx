@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import Header from './Header'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Register() {
   const [username,setUsername] = useState('');
@@ -11,16 +12,16 @@ function Register() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const response  = await axios.post('http://localhost:4000/register',{
+      const response  = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`,{
           // your expected POST request payload goes here
           username : username,
           password : password,
         },
       )
       setRedirect(true);
-      console.log(`data: `, response.data);
-   
+      toast.success('Registered Successfully');
     } catch (error) {
+      toast.error('Choose a unique username and try again');
       console.log(`error: `, error);
     }
   }

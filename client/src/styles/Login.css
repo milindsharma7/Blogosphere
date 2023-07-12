@@ -112,7 +112,7 @@ button{
     color: white;
 } */
 
-.headerMy{
+/* .headerMy{
     background-color: rgba(0, 132, 255, 0.694);
     color: white;
 }
@@ -120,14 +120,14 @@ button{
 .headerCreate{
     background-color: rgba(30, 215, 2, 0.694);
     color: white;
-}
+} */
 
-/* .headerLogout{
+.headerLogout{
     background-color: rgb(255, 60, 60);
     color: white;
 }
 
-.headerLogin{
+/*.headerLogin{
     background-color: rgb(228, 222, 36);
     color: white;
 }

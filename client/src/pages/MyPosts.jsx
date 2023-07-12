@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import { useContext, useEffect } from 'react'
 import axios from 'axios';
 import Header from './Header';
 import Posts from './Posts';
+import { toast } from 'react-toastify';
 
 function MyPosts() {
     const {userInfo,setUserInfo} = useContext(UserContext);
@@ -14,7 +15,7 @@ function MyPosts() {
 
     const getRequest = async () => {
       try {
-        const response  = await axios.post('http://localhost:4000/my',
+        const response  = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/my`,
             {
                 username
             }
@@ -26,13 +27,19 @@ function MyPosts() {
       }
     }
     useEffect(()=>{
-        getRequest();
+      toast.promise(
+        getRequest(),
+        {
+          pending: 'Loading',
+          error: "Error",
+        },
+      );
     },[]);
     return (
       <main>
           <Header/>
           {
-          posts ?
+          posts.length ?
            posts.map(post => {
               return <Posts {...post}/>
           })

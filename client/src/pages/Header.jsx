@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { UserContext } from './UserContext';
+import { UserContext } from '../UserContext';
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 function Header() {
 
@@ -10,7 +11,7 @@ function Header() {
 
   const getRequest = async () => {
     try {
-      const response  = await axios.get('http://localhost:4000/profile',
+      const response  = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/profile`,
         {
           withCredentials: true,
         }
@@ -24,14 +25,14 @@ function Header() {
     getRequest();
   },[]);
 
-
   const logOutRequest = async () => {
     try {
-      axios.get('http://localhost:4000/logout',
-        {
-          withCredentials: true,
-        }
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`,
+      {
+        withCredentials: true,
+      }
       ); 
+      toast.success('Logged Out');
       setLogOut(true);
     }catch (error) {
         // console.log(`error: `, error);
@@ -42,6 +43,7 @@ function Header() {
   if(logOut){
     return <Navigate to='/login'/>
   }
+  console.log(userInfo.username);
   return (
       <header>
         <a href="/home" className="logo">Blogosphere</a>

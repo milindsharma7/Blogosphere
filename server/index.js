@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -7,29 +8,27 @@ const Post = require('./models/Posts');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+
+const url = process.env.MONGODB_URL;
+const key = process.env.JWT_KEY;
+
 const app = express();
-
-const url = 'mongodb+srv://milindsharma:milind123@blog.76ccyfp.mongodb.net/?retryWrites=true&w=majority';
-const key = 'mvof3heu9eg9evgbwfe83un4c3cc4';
-
-app.use(cors({credentials:true,origin:'http://localhost:3000'}));
-
-//support parsing of application/x-www-form-urlencoded post data
+app.use(cors({credentials:true,origin:process.env.FRONT_END_URL}));
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(express.json());
 app.use(cookieParser());
+
 mongoose.connect(url);
+
+const PORT = process.env.PORT || 4000
 
 app.post('/login', async (req,res) => {
     try {
         const { username , password } = req.body;
-        // console.log(username,password);
         const response = await User.findOne({username : username});
         const hashPassword = response.password;
         const valid = await bcrypt.compare(password,hashPassword);
-        // console.log(password,hashPassword);
-        // console.log(valid);
         if(valid){
             jwt.sign({
                 username:username,
@@ -49,28 +48,31 @@ app.post('/login', async (req,res) => {
             throw res.status(400).json('Invalid Credentials');
         }
     } catch (e) {
-        console.log(e.message);
         res.status(400).json(e.message);
     }
 });
 app.post('/register', async (req,res) => {
     try {
         const { username , password } = req.body;
+        const find = await User.find({username: username});
+        if(find.length){
+            res.status(400);
+        }
         const response = await User.create({
             username,
             password: await bcrypt.hash(password,10)
         });
         res.json(response);
     } catch (e) {
-        console.log(e.message);
+        res.json(e.message);
+        res.status(400);
     }
 });
 
 app.post('/create', async (req,res) => {
-    // console.log(req);
     const {token} = req.cookies;
     jwt.verify(token, key, {}, async (err,info) => {
-      if (err) throw err;
+      if (err) res.status(400);
       const {title,summary,content,cover,name} = req.body;
       const postDoc = await Post.create({
         title,
@@ -87,11 +89,13 @@ app.post('/create', async (req,res) => {
 
 app.get('/profile',(req,res) => {
     const { token } = req.cookies;
+    console.log(token);
     jwt.verify(token,key,{},(err,response) => {
         if(!err){
-            res.json(response);
+            res.status(200).json(response);
         }
         else{
+            console.log(err,response);
             res.json(err);
         }
     });
@@ -99,15 +103,13 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.cookie("token", null, {
+        res.cookie("token", '', {
             httpOnly: true,
             expires: new Date(Date.now()),
         });
-        console.log('success logout');
         res.json('ok');
     } catch (e) {
-        // console.log(e.message);
-        res.status(400).json(e.message);
+        res.json(e.message);
     }
 });
 
@@ -116,18 +118,15 @@ app.get('/get', async (req,res) => {
         const posts = await Post.find().sort({updatedAt: -1});
         res.json(posts);
     } catch (e) {
-        // console.log(e.message);
         res.status(400).json(e.message);
     }
 });
 
 app.post('/my', async (req,res) => {
     try {
-        const posts = await Post.find({"name" : req.body.username});
-        // console.log(req.body.useranme);
+        const posts = await Post.find({"name" : req.body.username}).sort({updatedAt: -1});
         res.json(posts);
     } catch (e) {
-        // console.log(e.message);
         res.status(400).json(e.message);
     }
 });
@@ -139,7 +138,6 @@ app.get('/post/:id', async (req,res) => {
         const posts = await Post.findById(id);
         res.json(posts);
     } catch (e) {
-        // console.log(e.message);
         res.status(400).json(e.message);
     }
 });
@@ -150,9 +148,10 @@ app.put('/edit/:id', async (req,res) => {
         const post = await Post.findById(id);
         const {token} = req.cookies;
         jwt.verify(token, key, {}, async (err,info) => {
-          if (err) throw err;
+          if (err){
+            res.status(400);
+          }
           if(JSON.stringify(info.id) !== JSON.stringify(post.author)){
-            console.log('acha');
             throw res.status(400).json('Action not permitted');
           }
           const {title,summary,content,cover,name} = req.body;
@@ -177,18 +176,24 @@ app.put('/edit/:id', async (req,res) => {
 
 app.delete('/post/:id', async (req,res) => {
     try {
-        const { id } = req.params;
-        console.log(id);
-        // console
-        await Post.deleteOne({_id: id});
-        // console.log(rep);
-        res.json("Deleted Successfully");
+        const { id } = req.params; 
+        const post = await Post.findById(id);
+        const {token} = req.cookies;
+        jwt.verify(token, key, {}, async (err,info) => {
+          if (err){
+            res.status(400);
+          }
+          if(JSON.stringify(info.id) !== JSON.stringify(post.author)){
+            throw res.status(400).json('Action not permitted');
+          }
+          await Post.deleteOne({_id: id});
+          res.status(200).json("Deleted Sucessfully");
+        });
     } catch (e) {
-        // console.log(e.message);
-        res.status(400).json("cannot delete");
+        res.status(400).json(e.message);
     }
 });
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
     console.log("Server started successfully");
 });

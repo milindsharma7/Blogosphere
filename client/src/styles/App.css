@@ -6,9 +6,6 @@ font-family: 'Caprasimo',cursive;
 font-family: 'Roboto',sans-serif; */
 
 * {
-  /* border: 2px solid black;
-  margin: 10px; */
-  /* margin: 2px; */
   text-decoration: none;
   color: black
 }
@@ -69,10 +66,6 @@ header a:hover{
 .logo:hover{
   color: rgba(255, 255, 255, 0.858);
   background-color: rgba(0, 0, 0, 0.559);
-}
-
-header a.logo{
-  font-weight: bold;
 }
 
 header nav div{
