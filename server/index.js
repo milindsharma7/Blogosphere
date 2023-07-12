@@ -113,7 +113,7 @@ app.get('/logout', async (req,res) => {
 
 app.get('/get', async (req,res) => {
     try {
-        const posts = await Post.find().sort({_id:-1});
+        const posts = await Post.find().sort({updatedAt: -1});
         res.json(posts);
     } catch (e) {
         // console.log(e.message);
@@ -175,18 +175,17 @@ app.put('/edit/:id', async (req,res) => {
     }
 });
 
-app.delete('/delete/:id', async (req,res) => {
+app.delete('/post/:id', async (req,res) => {
     try {
-        const { id } = req.params; 
-        await Post.deleteOne(
-            {
-                _id:id
-            }
-        );
+        const { id } = req.params;
+        console.log(id);
+        // console
+        await Post.deleteOne({_id: id});
+        // console.log(rep);
         res.json("Deleted Successfully");
     } catch (e) {
         // console.log(e.message);
-        res.status(400).json(e.message);
+        res.status(400).json("cannot delete");
     }
 });
 

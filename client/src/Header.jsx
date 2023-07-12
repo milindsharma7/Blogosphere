@@ -50,16 +50,16 @@ function Header() {
           userInfo.username ? 
           <div>
             <div id='Name'> {userInfo.username} </div>
-            <Link to="/home">Home</Link>
-            <Link to="/my">MyPosts</Link>
-            <Link to="/create">Create</Link>
-            <a onClick={logOutRequest}>Logout</a>
+            <Link to="/home" className='headerHome'>Home</Link>
+            <Link to="/my" className='headerMy'>MyPosts</Link>
+            <Link to="/create" className='headerCreate'>Create</Link>
+            <a onClick={logOutRequest} className='headerLogout'>Logout</a>
           </div>
           :
           <div>
-            <Link to="/home">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/home" className='headerHome'>Home</Link>
+            <Link to="/login" className='headerLogin'>Login</Link>
+            <Link to="/register" className='headerRegister'>Register</Link>
           </div>
         }
         </nav>

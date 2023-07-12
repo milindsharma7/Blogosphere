@@ -83,7 +83,7 @@ function EditPost() {
           <input type="text" required value={summary} placeholder='Summary in 100 words' onChange={(e) => setSummary(e.target.value)}/>
           <input type="file" required accept='.jpeg,.png,.jpg' onChange={(e) => setFile(e.target.files)}/>
           <ReactQuill value={content} modules={modules} formats={formats} id='quill' onChange={(newValue) => setContent(newValue)}/>
-          <button type='submit' id='submitCreate'>Post</button>
+          <button type='submit' id='submitCreate'>Edit</button>
         </form>
       </div>
     )

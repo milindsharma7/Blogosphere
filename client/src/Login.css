@@ -9,7 +9,7 @@ font-family: 'Roboto',sans-serif; */
 *{
     outline: none;
     border: none;
-    background-color: rgb(224, 223, 223);
+    background-color: rgb(245, 245, 245);
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
 }
@@ -105,4 +105,24 @@ span{
 button{
     cursor: pointer;
     border-radius: 10px;
+}
+
+.headerHome{
+    background-color: rgba(0, 132, 255, 0.694);
+    color: white;
+}
+
+.headerMy{
+    background-color: rgba(0, 132, 255, 0.694);
+    color: white;
+}
+
+.headerCreate{
+    background-color: rgba(30, 215, 2, 0.694);
+    color: white;
+}
+
+.headerLogout{
+    background-color: rgb(255, 60, 60);
+    color: white;
 }

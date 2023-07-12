@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 import Header from './Header';
@@ -10,6 +10,7 @@ function SinglePost() {
   const {userInfo,setUserInfo} = useContext(UserContext);
   const [posts,setPosts] = useState({});
   const [canEdit,setCanEdit] = useState(false);
+  const [canDelete,setCanDelete] = useState(false);
   const { id } = useParams();
 
   const getRequest = async () => {
@@ -20,12 +21,10 @@ function SinglePost() {
         }
       );
       setPosts(response.data);
-      // console.log(response);
       
       if(response.data.author == userInfo.id){
         setCanEdit(true);
       }
-      // console.log(response);
     }catch (error) {
         
     }
@@ -33,6 +32,22 @@ function SinglePost() {
   useEffect(()=>{
     getRequest();
   },[]);
+
+  const deleteRequest = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.delete(`http://localhost:4000/post/${id}`
+      );
+      setCanDelete(true);
+    }catch (error) {
+
+    }
+  }
+  if(canDelete === true){
+    return (
+      <Navigate to='/home'/>
+    )
+  }
   const date = new Date(posts.createdAt);
   date.setHours(date.getHours() + 5)
   date.setMinutes(date.getMinutes() + 30)
@@ -52,7 +67,7 @@ function SinglePost() {
             canEdit ?
             <div id='sgButton'>
               <Link id='sgEdit' to={`/edit/${id}`}>EDIT</Link>
-              <Link id='sgDelete' to={`/delete/${id}`}>DELETE</Link>
+              <Link id='sgDelete' onClick={deleteRequest}>DELETE</Link>
             </div>
             :
             <div>
