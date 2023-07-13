@@ -56,21 +56,11 @@ app.post('/login', async (req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {	
-        jwt.sign({
-            username:'',
-            id:'',
-        },key,{},(err,token)=>{
-            if(err){
-                throw err;
-            }
-            res.cookie('token',token,{
-                id:response._id,
-                username:response.username,
-                httpOnly: true,
-                expires: new Date(Date.now()),
-                sameSite: 'none',
-                secure: true,
-            }).json('Logout Success');
+        res.cookie('token',null,{
+            expires: new Date(Date.now()),
+            sameSite: 'none',
+            secure: true,
+            httpOnly: true,
         });
     } catch (e) {
         res.json(e.message);
