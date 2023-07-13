@@ -108,6 +108,8 @@ app.get('/logout', async (req,res) => {
         res.cookie("token", '', {
             httpOnly: true,
             expires: new Date(Date.now()),
+            sameSite: 'none',
+            secure: true,
         });
         res.json('ok');
     } catch (e) {
