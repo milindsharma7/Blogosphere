@@ -61,7 +61,7 @@ app.post('/login', async (req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {	
-        res.cookie('token',null,{
+        res.cookie('token','',{
             expires: new Date(Date.now()),
             sameSite: 'none',
             secure: true,
