@@ -61,9 +61,9 @@ app.post('/login', async (req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {	
-        res.cookie('token','',{
-            id:'',
-            username:'',
+        res.cookie('token',null,{
+            id:null,
+            username:null,
             httpOnly: true,
             expires: new Date(Date.now()),
             sameSite: 'none',
