@@ -91,13 +91,13 @@ app.post('/create', async (req,res) => {
 
 app.get('/profile',(req,res) => {
     const { token } = req.cookies;
-    console.log(token);
+    // console.log(token);
     jwt.verify(token,key,{},(err,response) => {
         if(!err){
             res.status(200).json(response);
         }
         else{
-            console.log(err,response);
+            // console.log(err,response);
             res.json(err);
         }
     });
@@ -106,6 +106,7 @@ app.get('/profile',(req,res) => {
 app.get('/logout', async (req,res) => {
     try {
         res.clearCookie('token');
+        res.clearCookie('connect.sid');
         res.json('ok');
     } catch (e) {
         res.json(e.message);
