@@ -105,7 +105,7 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.cookie('token',null,{
+        req.cookie('token',null,{
             id:'',
             username:'',
             httpOnly: true,
