@@ -42,7 +42,6 @@ app.post('/login', async (req,res) => {
                     username:response.username,
                     httpOnly: true,
                     expires: new Date(Date.now() + 60 * 1000 * 60),
-                    sameSite: 'none',
                 }).json('Login Success');
             });
         }else{
