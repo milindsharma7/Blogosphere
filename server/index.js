@@ -105,12 +105,10 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.cookie('token',null,{
-            httpOnly: true,
-            expires: new Date(1),
-            sameSite: 'none',
+        res.clearCookie('token', {
+            sameSite: "none",
             secure: true,
-        }).json('Logout Success');
+        });
     } catch (e) {
         res.json(e.message);
     }
