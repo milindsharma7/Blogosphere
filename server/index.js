@@ -105,8 +105,7 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.clearCookie('token');
-        res.clearCookie('connect.sid');
+        res.clearCookie('token', {path:'/'});
         res.json('ok');
     } catch (e) {
         res.json(e.message);

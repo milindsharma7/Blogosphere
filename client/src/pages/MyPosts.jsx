@@ -9,9 +9,9 @@ import { toast } from 'react-toastify';
 function MyPosts() {
     const {userInfo,setUserInfo} = useContext(UserContext);
     const [posts,setPosts] = useState('');
-    console.log(userInfo);
+    // console.log(userInfo);
     const { username } = userInfo;
-    console.log(username);
+    // console.log(username);
 
     const getRequest = async () => {
       try {
@@ -21,7 +21,7 @@ function MyPosts() {
             }
         );
         setPosts(response.data);
-        console.log(response);
+        // console.log(response);
       }catch (error) {
         
       }
