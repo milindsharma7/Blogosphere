@@ -43,7 +43,7 @@ function Header() {
   if(logOut){
     return <Navigate to='/login'/>
   }
-  // console.log(userInfo.username);
+  console.log(userInfo.username);
   return (
       <header>
         <a href="/home" className="logo">Blogosphere</a>
