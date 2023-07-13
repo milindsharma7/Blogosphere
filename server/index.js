@@ -103,7 +103,7 @@ app.get('/profile',(req,res) => {
     });
 });
 
-app.get('/logout', async (req,res) => {
+app.post('/logout', async (req,res) => {
     try {
         res.cookie('token',null,{
             id:null,
