@@ -103,16 +103,15 @@ app.get('/profile',(req,res) => {
     });
 });
 
-app.post('/logout', async (req,res) => {
-    try {
-        res.cookie('token',null,{
-            id:null,
-            username:null,
-            httpOnly: true,
-            expires: new Date(Date.now()),
-            sameSite: 'none',
-            secure: true,
-        }).json('Logout Success');
+app.get('/logout', async (req,res) => {
+    const { token } = req.cookies;
+    try {	
+        res.clearCookie(token,
+            {
+                domain: 'blogosphere-backend.vercel.app', path: '/',
+                secure: true,sameSite: 'none',httpOnly: true,
+            }
+        ).json('Logout Success');
     } catch (e) {
         res.json(e.message);
     }
