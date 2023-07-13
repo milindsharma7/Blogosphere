@@ -103,11 +103,11 @@ app.get('/profile',(req,res) => {
     });
 });
 
-app.get('/logout', async (req,res) => {
+app.post('/logout', async (req,res) => {
     try {	
         res.cookie('token',token,{
             httpOnly: true,
-            expires: new Date(1),
+            expires: new Date(Date.now()),
             sameSite: 'none',
             secure: true,
         }).json('Logout Success');

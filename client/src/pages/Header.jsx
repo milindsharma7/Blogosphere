@@ -27,7 +27,7 @@ function Header() {
 
   const logOutRequest = async () => {
     try {
-      axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`,
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/logout`,null,
       {
         withCredentials: true,
       }
