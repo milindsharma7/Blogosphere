@@ -21,9 +21,9 @@ function Header() {
       
     }
   }
-  useEffect(()=>{
+  // useEffect(()=>{
     getRequest();
-  },[]);
+  // },[]);
 
   const logOutRequest = async () => {
     try {
