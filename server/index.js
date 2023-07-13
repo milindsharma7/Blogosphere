@@ -107,7 +107,7 @@ app.get('/logout', async (req,res) => {
     try {
         res.cookie('token',null,{
             httpOnly: true,
-            expires: new Date(Date.now()),
+            expires: new Date(1),
             sameSite: 'none',
             secure: true,
         }).json('Logout Success');
