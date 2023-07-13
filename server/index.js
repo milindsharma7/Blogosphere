@@ -105,10 +105,7 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.clearCookie('token', {
-            sameSite: "none",
-            secure: true,
-        });
+        res.clearCookie('token', {domain: 'blogosphere-backend.vercel.app', path: '/'});
     } catch (e) {
         res.json(e.message);
     }
