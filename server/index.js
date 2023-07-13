@@ -104,14 +104,13 @@ app.get('/profile',(req,res) => {
 });
 
 app.get('/logout', async (req,res) => {
-    const { token } = req.cookies;
     try {	
-        res.clearCookie('token',
-            {
-                domain: 'blogosphere-backend.vercel.app', path: '/',
-                secure: true,sameSite: 'none',httpOnly: true,
-            }
-        ).json('Logout Success');
+        res.cookie('token',token,{
+            httpOnly: true,
+            expires: new Date(1),
+            sameSite: 'none',
+            secure: true,
+        }).json('Logout Success');
     } catch (e) {
         res.json(e.message);
     }
