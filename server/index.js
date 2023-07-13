@@ -18,24 +18,6 @@ app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(express.json());
 app.use(cookieParser());
-app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://blogs-sphere.vercel.app');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
 
 mongoose.connect(url);
 
@@ -123,7 +105,14 @@ app.get('/profile',(req,res) => {
 
 app.get('/logout', async (req,res) => {
     try {
-        res.clearCookie('token', {domain: 'blogosphere-backend.vercel.app', path: '/'});
+        res.cookie('token',null,{
+            id:'',
+            username:'',
+            httpOnly: true,
+            expires: new Date(Date.now()),
+            sameSite: 'none',
+            secure: true,
+        }).json('Logout Success');
     } catch (e) {
         res.json(e.message);
     }
