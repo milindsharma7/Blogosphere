@@ -66,7 +66,7 @@ app.get('/logout', async (req,res) => {
             sameSite: 'none',
             secure: true,
             httpOnly: true,
-        });
+        }).json('Logged Out Success');
     } catch (e) {
         res.json(e.message);
     }
