@@ -29,7 +29,7 @@ function Header() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`,
       {
-        withCredentials: true,
+        // withCredentials: true,
       }
       ); 
       toast.success('Logged Out');
