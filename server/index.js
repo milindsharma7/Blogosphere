@@ -68,7 +68,7 @@ app.get('/logout', async (req,res) => {
             expires: new Date(Date.now()),
             sameSite: 'none',
             secure: true,
-        }).json('Logged Out Success');
+        }).json(req.cookie('token'));
     } catch (e) {
         res.json(e.message);
     }
