@@ -62,10 +62,12 @@ app.post('/login', async (req,res) => {
 app.get('/logout', async (req,res) => {
     try {	
         res.cookie('token','',{
+            id:'',
+            username:'',
+            httpOnly: true,
             expires: new Date(Date.now()),
             sameSite: 'none',
             secure: true,
-            httpOnly: true,
         }).json('Logged Out Success');
     } catch (e) {
         res.json(e.message);
