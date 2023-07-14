@@ -51,7 +51,7 @@ function EditPost() {
     e.preventDefault();
     const base64 = await convertToBase64(file[0]);
     try {
-      const response  = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/${id}`,{
+      const response  = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/${id}`,{
           // your expected POST request payload goes here
           title: title,
           summary: summary,
