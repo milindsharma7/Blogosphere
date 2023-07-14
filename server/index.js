@@ -13,12 +13,6 @@ const url = process.env.MONGODB_URL;
 const key = process.env.JWT_KEY;
 
 const app = express();
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
-    next(); 
-})
 app.use(cors({credentials:true,origin:process.env.FRONT_END_URL}));
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
